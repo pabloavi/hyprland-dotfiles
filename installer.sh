@@ -15,3 +15,7 @@ ln -s $installer_dir/swhkd ~/.config/
 # wlogout
 [ ! -f ~/.config/wlogout ] || mv ~/.config/wlogout ~/.config/wlogout.bak
 ln -s $installer_dir/wlogout ~/.config/
+
+# waybar
+[ ! -f ~/.config/hypr ] || mv ~/.config/waybar/ ~/.config/waybar.bak
+ln -s $installer_dir/waybar ~/.config/

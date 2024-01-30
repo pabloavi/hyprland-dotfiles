@@ -21,27 +21,25 @@ button:hover {
 }
 
 #lock {
-  background-image: image(url("/home/pablo/.local/share/wlogout/lock.png"));
+  background-image: image(url("/home/pablo/.config/wlogout/lock.png"));
 }
 
 #logout {
-  background-image: image(url("/home/pablo/.local/share/wlogout/logout.png"));
+  background-image: image(url("/home/pablo/.config/wlogout/logout.png"));
 }
 
 #suspend {
-  background-image: image(url("/home/pablo/.local/share/wlogout/suspend.png"));
+  background-image: image(url("/home/pablo/.config/wlogout/suspend.png"));
 }
 
 #hibernate {
-  background-image: image(
-    url("/home/pablo/.local/share/wlogout/hibernate.png")
-  );
+  background-image: image(url("/home/pablo/.config/wlogout/hibernate.png"));
 }
 
 #shutdown {
-  background-image: image(url("/home/pablo/.local/share/wlogout/shutdown.png"));
+  background-image: image(url("/home/pablo/.config/wlogout/shutdown.png"));
 }
 
 #reboot {
-  background-image: image(url("/home/pablo/.local/share/wlogout/reboot.png"));
+  background-image: image(url("/home/pablo/.config/wlogout/reboot.png"));
 }
