@@ -3,13 +3,13 @@
 installer_dir="$(pwd)"
 
 # hyprland
-mv ~/.config/hypr/ ~/.config/hypr.bak
-ln -s installer_dir/hypr ~/.config/hypr/hyprland.conf
+[ -f ~/.config/hypr ] && mv ~/.config/hypr/ ~/.config/hypr.bak
+ln -s installer_dir/hypr ~/.config/hypr/
 
 # swhkd
-mv ~/.config/swhkd ~/.config/swhkd.bak
+[ -f ~/.config/swhkd ] && mv ~/.config/swhkd ~/.config/swhkd.bak
 ln -s installer_dir/swhkd ~/.config/swhkd
 
 # wlogout
-mv ~/.config/wlogout ~/.config/wlogout.bak
+[ -f ~/.config/wlogout ] && mv ~/.config/wlogout ~/.config/wlogout.bak
 ln -s installer_dir/wlogout ~/.config/wlogout
