@@ -1,0 +1,67 @@
+include /home/pablo/.config/swhkd/swhkdrc
+
+super + d
+  rofi -show drun
+
+super + p
+  pgrep -x wlogout || wlogout -p layer-shell
+
+super + x
+  hyprctl keyword general:border_size $(($(hyprctl getoption general:border_size | grep -oP 'int: \K.*') == 0 ? 3 : 0))
+
+super + n
+  swaync-client -t -sw
+
+# these are better inside hyprlands config
+# super + shift + r
+#   hyprctl reload
+#
+# super + shift + q
+#   hyprctl dispatch exit
+
+super + {w,s,f}
+  hyprctl dispatch {killactive,togglefloating,fullscreen}
+
+super + q
+  hyprctl dispatch workspace previous
+
+super + {_,shift} + {h,j,k,l}
+  hyprctl dispatch {movefocus,swapwindow} {l,d,u,r}
+
+alias $activemonitor = "$(hyprctl -j monitors | jq -r '.[] | select(.focused == true) | .id')"
+super + {_,shift} + {1-9}
+  hyprctl dispatch {workspace,movetoworkspacesilent} $activemonitor{1-9}
+
+super + {_,shift} + 0
+  hyprctl dispatch {workspace,movetoworkspacesilent} "$(($activemonitor+1))"0
+
+super + shift + Return
+  hyprctl dispatch layoutmsg swapwithmaster
+
+# super + {comma,period}
+#   hyprctl dispatch focusmonitor monitor:$([ $activemonitor -eq 0 ] && 1 || echo 0)
+
+# ##########
+# # LAYOUT #
+# ##########
+
+# super + {up,down,left,right}
+#   riverctl send-layout-cmd luatile "location("\'{top,bottom,left,right}\'")"
+
+super + control + {j,k}
+  hyprctl dispatch layoutmsg {removemaster,addmaster}
+
+# super + control + {h,l}
+#   riverctl send-layout-cmd luatile "main_ratio_{down,up}()"
+#
+# super + {_,shift} + space
+#   riverctl send-layout-cmd luatile "cycle_layout("{_,true}")"
+#
+# super + control + s
+#   ~/.config/river/scripts/layout_changer
+#
+# super + control + return
+#   riverctl send-layout-cmd luatile "bring_to_front()"
+#
+# super + control + f
+#   riverctl send-layout-cmd luatile "flip()"

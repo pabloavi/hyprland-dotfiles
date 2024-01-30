@@ -1,0 +1,161 @@
+super + escape
+  pkexec pkill -HUP swhkd
+
+alias $terminal = st
+alias $terminal_cmd = st -e
+alias $browser = firefox
+alias $file_manager = nautilus -w
+alias $semestre_dir = '/home/pablo/Documentos/OneDrive/UEx/SEMESTRE 8/'
+
+###############
+# SCREENSHOTS #
+###############
+
+# fullscreen screenshot to clipboard
+super + u
+  ~/.config/swhkd/scripts/screenshot.sh --full --clipboard
+
+# cropped screenshot to clipboard
+super + shift + u
+  ~/.config/swhkd/scripts/screenshot.sh --select --clipboard
+
+# fullscreen screenshot to file
+super + F12
+  ~/.config/swhkd/scripts/screenshot.sh --full --file
+
+# cropped screenshot to file
+super + shift + x
+  ~/.config/swhkd/scripts/screenshot.sh --select --file
+
+# cropped screenshot with sxiv preview
+super + shift + s
+  ~/.config/swhkd/scripts/screenshot.sh --sxiv
+
+
+##########
+# SYSTEM #
+##########
+
+super + Return
+  $terminal_cmd
+
+super + v
+  ~/.config/swhkd/scripts/clipboard.sh
+
+# browser (firefox and ungoogled chromium) 
+alt + {_,shift} + 1
+  {$browser, flatpak run com.github.Eloston.UngoogledChromium}
+
+# file manager (pcmanfm and wezterm)
+alt + {_,shift} + 2
+  {$file_manager, $terminal_cmd ranger}
+
+# open OneDrive folder (pcmanfm or ranger)
+alt + {_,shift} + o
+  {$file_manager, $terminal_cmd ranger} $semestre_dir
+
+# open whatsapp
+ctrl + alt + w
+  ~/.config/swhkd/scripts/focus_and_workspace.sh whatsapp
+
+# open discord
+ctrl + alt + d
+  ~/.config/swhkd/scripts/focus_and_workspace.sh discord
+
+# open outlook
+ctrl + alt + o
+  ~/.config/swhkd/scripts/focus_and_workspace.sh outlook
+
+super + shift + c
+  ~/.config/swhkd/scripts/color-picker.sh
+
+XF86MonBrightnessUp
+  brightnessctl set +2%
+
+XF86MonBrightnessDown
+  brightnessctl set 2%-
+
+XF86AudioRaiseVolume
+  pactl set-sink-volume @DEFAULT_SINK@ +5%
+XF86AudioLowerVolume
+  pactl set-sink-volume @DEFAULT_SINK@ -5%
+XF86AudioMute
+  pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+#########
+# NOTES #
+#########
+
+super + a
+  @enter notes && zenity --title "Shortcuts Help" --info --no-wrap --text "$(swhkdhelp 'notes' "$HOME/.config/swhkd/swhkdrc" --markup)" &
+
+
+mode notes oneoff
+# Iniciar el modo notas (inkscape)
+i
+  @escape && killall zenity && ~/Documentos/Universidad/scripts/notesini
+
+# Cerrar el modo notas (inkscape)
+o
+  @escape && killall zenity && ~/Documentos/Universidad/scripts/notesout
+
+# START NOTES
+
+# Abrir el master.pdf del curso actual
+d
+  @escape && killall zenity; zathura "$HOME/Documentos/Universidad/Apuntes/curso_actual/master.pdf"
+
+# Editar el master del curso actual (NeoVim)
+m
+  @escape && killall zenity; python3 "$HOME/Documentos/Universidad/Apuntes/scripts/edit-master.py"
+
+# Abrir una terminal en el directorio del curso actual
+t
+  @escape && killall zenity; st -d "$HOME/Documentos/Universidad/Apuntes/curso_actual"
+
+# Seleccionar qué lecturas compilar en el master
+v
+  @escape && killall zenity; python3 "$HOME/Documentos/Universidad/Apuntes/scripts/rofi-lectures-view.py"
+
+# Editar una lectura o crear una nueva (Alt+n)
+l
+  @escape && killall zenity; python3 "$HOME/Documentos/Universidad/Apuntes/scripts/rofi-lectures.py"
+
+# Editar una figura de la práctica actual en Inkscape
+f
+  @escape && killall zenity; inkscape-figures edit "$HOME/Documentos/Universidad/Apuntes/curso_actual/figures"
+
+# Compilar todos los master.pdf
+a
+  @escape && killall zenity; python3 "$HOME/Documentos/Universidad/Apuntes/scripts/compile-all-masters.py"
+
+# Seleccionar el curso actual
+c
+  @escape && killall zenity; python3 "$HOME/Documentos/Universidad/Apuntes/scripts/rofi-courses".py; pkill -RTMIN+1 waybar
+
+# Abrir Nautilus en el directorio del curso actual
+e
+  @escape && killall zenity; nautilus -w "$HOME/Documentos/Universidad/Apuntes/curso_actual"
+
+# Abrir ranger en el directorio del curso actual
+r
+  @escape && killall zenity; st -e ranger "$HOME/Documentos/Universidad/Apuntes/curso_actual"
+
+# Hacer una captura de patalla (Alt+d => Nombre = fecha)
+s
+  @escape && killall zenity; python3 "$HOME/Documentos/Universidad/Apuntes/scripts/screenshot.py"
+
+# Abrir el enlace del curso
+u
+  @escape && killall zenity; python3 "$HOME/Documentos/Universidad/Apuntes/scripts/open_link.py"
+
+# END NOTES
+
+# Salir del modo notas
+{escape,return,KP_Enter}
+  @enter normal && killall zenity
+endmode # notes
+
+# Seleccionar el modo actual
+super + m
+  python3 "$HOME/Documentos/Universidad/scripts/wrapper/rofi-modes.py"; pkill -RTMIN+1 waybar

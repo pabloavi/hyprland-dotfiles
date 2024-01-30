@@ -1,0 +1,36 @@
+{
+    "label" : "shutdown",
+    "action" : "systemctl poweroff",
+    "text" : "Apagar",
+    "keybind" : "a"
+}
+{
+    "label" : "reboot",
+    "action" : "systemctl reboot",
+    "text" : "Reiniciar",
+    "keybind" : "r"
+}
+{
+    "label" : "logout",
+    "action" : "loginctl terminate-user $USER",
+    "text" : "Cerrar sesión",
+    "keybind" : "c"
+}
+{
+    "label" : "suspend",
+    "action" : "swaylock --clock --indicator --indicator-radius 300 --indicator-thickness 20 --effect-blur 7x5 --effect-vignette 0.5:0.5 --ring-color 61afef --key-hl-color 98C379 --line-color 00000000 --inside-color 00000088 --separator-color 00000000 --grace 2 --fade-in 0.2 --image /home/pablo/.local/share/backgrounds/deer_god_2k.png --text-color abb2bf --datestr '%a, %d/%m'",
+    "text" : "Suspender",
+    "keybind" : "s"
+}
+{
+    "label" : "hibernate",
+    "action" : "systemctl hibernate",
+    "text" : "Hibernate",
+    "keybind" : "h"
+}
+{
+    "label" : "lock",
+    "action" : "swaylock -i /home/pablo/.local/share/backgrounds/deer_god_2k.png",
+    "text" : "Lock",
+    "keybind" : "l"
+}
